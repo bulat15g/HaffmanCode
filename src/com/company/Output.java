@@ -6,6 +6,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Output {
     HashMap<Character,String>table;
@@ -17,6 +18,9 @@ public class Output {
         this.source = source;
         byteTable= tableToDecoder(table);
         byteText=stringToDecoder(table,source);
+        System.out.println("makeErrors? y/n");
+        Scanner in=new Scanner(System.in);String s=in.next();
+        if ((s=="y")||(s=="Y"))makeError();
     }
 
     public byte[] tableToDecoder(HashMap<Character,String> table){

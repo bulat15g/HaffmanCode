@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        String text="ssdvsdvdv";
+        String text=Source.getFileText("abvc");
         Haffman haffman=new Haffman(text);
 
         Output output=new Output(haffman.getTable(),haffman.getMainText());
@@ -13,6 +13,7 @@ public class Main {
         decoder.decodeTable();
         decoder.finalStep();
 
+        Stat.countSize(text,output.getByteTable(),output.getByteText(),haffman.getStatics());
 
     }
 

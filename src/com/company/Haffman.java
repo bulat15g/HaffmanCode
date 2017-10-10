@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Haffman {
     private String fromsource;
-    private HashMap <Character,Integer> statics =new HashMap<>();
+    public HashMap <Character,Integer> statics =new HashMap<>();
     private ArrayList<Node> tree=new ArrayList<>();
     private HashMap<Character,String> table=new HashMap<>();
 
@@ -93,7 +93,7 @@ public class Haffman {
         return fromsource;
     }
 
-    public long getSizeOfText(){
-        return fromsource.length();
+    public HashMap<Character, Integer> getStatics() {
+        return statics;
     }
 }
