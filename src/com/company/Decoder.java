@@ -8,20 +8,20 @@ import java.util.HashMap;
 
 public class Decoder {
     private byte []byteTable,byteText;
-    private HashMap<Character,String> table;
+    private HashMap<String,String> table;
     private String message="";
 
-    void decodeTable() {
+    private void decodeTable() {
         ByteArrayInputStream bis = new ByteArrayInputStream(byteTable);
         ObjectInput in = null;
         try {
             in = new ObjectInputStream(bis);
-            table = (HashMap<Character, String>) in.readObject();
+            table = (HashMap<String, String>) in.readObject();
             in.close();
         }
         catch (IOException | ClassNotFoundException ignored){}
 
-        for (Character a:table.keySet()) {
+        for (String a:table.keySet()) {
             System.out.print(a+"-->"+table.get(a)+"|| ||");
         }
         System.out.println("on Decoder");
@@ -29,19 +29,16 @@ public class Decoder {
 
     private void decodeString(StringBuilder input){
         int iterationOnTheEnd=0;
-        while(input.length()!=0){//пока еще есть код
-            for (char a:table.keySet()) {//для всей таблицы
-                String tableA=table.get(a);
-
+        String tableA = null;
+        while((input.length()!=0)){//пока еще есть код
+            for (String a:table.keySet()){//для всей таблицы
+                tableA=table.get(a);
                 boolean match=true;
                 boolean allow=tableA.length()<=input.length();
                 for (int i = 0; i < tableA.length(); i++) {//проверка-первых Н букв соотвествия
-                    if (allow&&(tableA.charAt(i)!=input.charAt(i)))
-                    {match= false;break;}
+                    if (allow&&(tableA.charAt(i)!=input.charAt(i))) {match= false;break;}
                 }
                 if(match&&allow){
-//                    System.out.println("before delete"+binaryText+"    a:="+tableA);
-//                    System.out.println("after delete"+binaryText);
                     message+=a;
                     for (int i = 0; i < tableA.length(); i++)input.deleteCharAt(0);
                     break;
@@ -51,12 +48,13 @@ public class Decoder {
                 iterationOnTheEnd++;
                 if (iterationOnTheEnd>10)break;
             }
-
+            if (tableA== Huffman.tail) break;
         }
-        System.out.println("\n"+message);
+
+        if(message.length()<1000)System.out.println("\n"+"word:=  "+message);
+        else System.out.println("Message too Long");
 
         if(iterationOnTheEnd>10)System.out.println("\n сycle breaked!!");
-
     }
 
     private StringBuilder decodeToString(){
@@ -73,17 +71,16 @@ public class Decoder {
 //            }
 //        }
 
-        System.out.println("\n"+binaryText);
+        if(binaryText.length()<1000)System.out.println("\n"+binaryText);
+        else System.out.println("binary too long");
         return binaryText;
-    }
-
-    void finalStep(){
-        decodeString(decodeToString());
     }
 
     Decoder(byte[] byteTable, byte[] byteText) {
         this.byteTable = byteTable;
         this.byteText = byteText;
+        decodeTable();
+        decodeString(decodeToString());
     }
 
 }

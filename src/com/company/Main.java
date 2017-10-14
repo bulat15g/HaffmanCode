@@ -4,19 +4,22 @@ import java.io.IOException;
 
 public class Main {
     static double criticalChanse=0.15;
+    static int blockLenMinusOne=2;
+    static boolean hasErrors=false;
+    static CalculateTimer timer=new CalculateTimer();
+
     public static void main(String[] args) throws IOException {
 
         String text=Source.getFileText("abvc");
-        Haffman haffman=new Haffman(text);
+        Huffman huffman =new Huffman(text);
 
-        Output output=new Output(haffman.getTable(),haffman.getMainText());
+
+        Output output=new Output(huffman.getTable(), huffman.getMainText());
         Decoder decoder=new Decoder(output.getByteTable(),output.getByteText());
-        decoder.decodeTable();
-        decoder.finalStep();
+        timer.showTime();
+        Stat.countSize(text,output.getByteTable(),output.getByteText(), huffman.getStatics());
 
-        Stat.countSize(text,output.getByteTable(),output.getByteText(),haffman.getStatics());
 
     }
-
 
 }

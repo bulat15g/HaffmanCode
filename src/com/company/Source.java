@@ -25,7 +25,6 @@ public class Source {
 
         return toReturn;
     }
-
     //не смотреть
     public static void writeToFile(String filename) throws IOException {
         FileWriter fileWriter=new FileWriter(filename);
@@ -62,6 +61,5 @@ public class Source {
         fileWriter.close();
 
     }
-
 
 }

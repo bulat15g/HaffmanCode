@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 public class Node {
     ArrayList<Boolean> way;
-    Character Letter;
+    String Letter;
     Integer cost;
     private Node left,right;
 
-    Node(Character letter, Integer cost) {
+    Node(String letter, Integer cost) {
         Letter = letter;
         this.cost = cost;
     }
 
-    public Node(Character letter, Integer cost, Node left, Node right) {
+    public Node(String letter, Integer cost, Node left, Node right) {
         Letter = letter;
         this.cost = cost;
         this.left = left;
