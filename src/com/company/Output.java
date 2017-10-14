@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.xml.internal.fastinfoset.util.CharArray;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
@@ -17,10 +19,12 @@ public class Output {
         this.table = table;
         this.source = source;
         byteTable= tableToDecoder(table);
-        byteText=stringToDecoder(table,source);
-        System.out.println("makeErrors? y/n");
+        
+        System.out.println("makeErrors with chance "+Main.criticalChanse+" ? y/n");
         Scanner in=new Scanner(System.in);String s=in.next();
         if ((s=="y")||(s=="Y"))makeError();
+        
+        byteText=stringToDecoder(table,source);
     }
 
     public byte[] tableToDecoder(HashMap<Character,String> table){
@@ -61,11 +65,21 @@ public class Output {
         return forRet;
     }
 
-    public void makeError(){
-        Random random=new Random();
-        for (int i = 0; i < byteText.length; i++) {
-            byteText[i]+=(random.nextBoolean()?1:-1)*(random.nextInt()%(random.nextInt()%5));
+    private void makeError() {
+
+        Random random = new Random();
+
+        char[] characters=source.toCharArray();
+
+        for (int i = 0; i < source.length(); i++) {
+            if(Math.abs(random.nextDouble()-0.5)<Main.criticalChanse){
+
+                if (characters[i]=='0')characters[i]='1';
+                else characters[i]='0';
+            }
         }
+
+        source=String.copyValueOf(characters);
     }
 
     public byte[] getByteTable() {

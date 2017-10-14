@@ -13,7 +13,6 @@ public class Stat {
         double idMemory=0;
         double chanse;
         for (char a : statics.keySet()) {
-
             chanse=(double)statics.get(a)/incomingText.length();
             idMemory+=chanse*(Math.log(chanse)/Math.log(2.0));
         }
