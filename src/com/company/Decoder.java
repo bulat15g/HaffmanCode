@@ -76,11 +76,12 @@ public class Decoder {
         return binaryText;
     }
 
-    Decoder(byte[] byteTable, byte[] byteText) {
+    Decoder(byte[] byteTable, byte[] byteText) throws IOException {
         this.byteTable = byteTable;
         this.byteText = byteText;
         decodeTable();
         decodeString(decodeToString());
+        Stat.writeToLog(message);
     }
 
 }

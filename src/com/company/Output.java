@@ -20,8 +20,7 @@ public class Output {
         this.source = source;
         byteTable= tableToDecoder(table);
 
-        if (Main.hasErrors)makeError();
-        
+
         byteText=stringToDecoder(table,source);
     }
 
@@ -54,6 +53,8 @@ public class Output {
 
         System.out.println("now coded bin is preparing");
 
+        if(Main.hasErrors)readyString=new StringBuilder(makeError(readyString.toString()));
+
         if(readyString.length()<1000)System.out.println(readyString+"\n");
         else System.out.println("bin too long");
         byte[] forRet=new byte[readyString.length()/8+(readyString.length()%8!=0?1:0)];
@@ -64,21 +65,26 @@ public class Output {
         return forRet;
     }
 
-    private void makeError() {
+    private String makeError(String binary) {
 
         Random random = new Random();
 
-        char[] characters=source.toCharArray();
+        char[] characters=binary.toCharArray();
 
-        for (int i = 0; i < source.length(); i++) {
-            if(Math.abs(random.nextDouble()-0.5)<Main.criticalChanse){
+        System.out.println("---> "+binary);
+        for (int i = 0; i < binary.length(); i++) {
+            if(random.nextDouble()<Main.criticalChanse){
+//                System.out.print("E|");
 
                 if (characters[i]=='0')characters[i]='1';
                 else characters[i]='0';
             }
         }
 
-        source=String.copyValueOf(characters);
+        binary=String.copyValueOf(characters);
+        System.out.println("---> "+binary);
+
+        return binary;
     }
 
     public byte[] getByteTable() {

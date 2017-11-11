@@ -9,12 +9,12 @@ public class CalculateTimer {
     Timer timer;
 
     CalculateTimer() {
-        timer=new Timer(1000, (ActionListener) e -> integer++);
+        timer=new Timer(100, (ActionListener) e -> integer++);
         timer.start();
     }
 
     void showTime(){
-        System.out.println("current Time is:="+integer);
+        System.out.println("current Time is:="+integer+"100 ms");
     }
 
 }

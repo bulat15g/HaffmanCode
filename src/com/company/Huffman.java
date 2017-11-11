@@ -19,7 +19,13 @@ public class Huffman {
         fromsource=data;
         fromsource=fromsource.toLowerCase();
         countStatictics();
+        if(Main.uniCodes){
+            for (String a : statics.keySet()) {
+                statics.put(a,1);
+            }
+        }
         createAndCompBinaryTree();
+//        System.out.println("TREE SIZE"+tree.size());
 
         while (tree.size()>1){
             tree.sort(Comparator.comparingInt(o -> o.cost));
