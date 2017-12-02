@@ -1,10 +1,12 @@
 package com.company;
 
+import com.company.instruments.Node;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import static com.company.Main.blockLenMinusOne;
+import static com.company.Main.blockLen;
 
 
 public class Huffman {
@@ -12,7 +14,7 @@ public class Huffman {
     private HashMap <String,Integer> statics =new HashMap<>();
     private ArrayList<Node> tree=new ArrayList<>();
     private HashMap<String,String> table=new HashMap<>();
-    static String tail;
+    public static String tail;
 
     //get data and fill tree,and table
     Huffman(String data){
@@ -72,8 +74,8 @@ public class Huffman {
     }
 
     private void countStatictics(){
-        for (int i = 0; i < fromsource.length()/blockLenMinusOne; i++) {
-            String Ai=fromsource.substring(blockLenMinusOne*i,blockLenMinusOne*(i+1));
+        for (int i = 0; i < fromsource.length()/ blockLen; i++) {
+            String Ai=fromsource.substring(blockLen *i, blockLen *(i+1));
             if(statics.containsKey(Ai)){
                 statics.put(Ai,statics.get(Ai)+1);
             }
@@ -83,7 +85,7 @@ public class Huffman {
         }
 
         tail=fromsource.substring(
-                (fromsource.length()/blockLenMinusOne)*blockLenMinusOne,fromsource.length())+"__tail__";
+                (fromsource.length()/ blockLen)* blockLen,fromsource.length())+"__tail__";
 
         //tail addition
         if(statics.containsKey(tail)){

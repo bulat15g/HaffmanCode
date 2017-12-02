@@ -3,10 +3,11 @@ package com.company;
 import java.io.IOException;
 
 public class Main {
-    static double criticalChanse=0.005;
-    static int blockLenMinusOne=2;
-    static boolean uniCodes=false;
-    static boolean hasErrors=false;
+    public static double criticalChanse=0.005;
+    public static int blockLen=1;
+    public static boolean uniCodes=false;//равномерное кодирование
+    public static boolean hasErrors=true;//делаь ли ошибки
+    public static boolean makeCorrections=true;
 
     public static void main(String[] args) throws IOException {
 
@@ -14,5 +15,8 @@ public class Main {
         Union union=new Union(text);
         union.decodeProcess();
 
+
+//        SafeCoder coder=new SafeCoder(null,null);
+//        coder.shovMatrix();
     }
 }

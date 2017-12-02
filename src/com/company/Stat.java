@@ -11,7 +11,7 @@ public class Stat {
     static String toLog="";
 
     public static void countSize(String incomingText,byte[] byteTable, byte[] byteText,
-                                 HashMap<String,Integer> statics){
+                                 HashMap<String,Integer> statics) throws IOException {
 
         toLog+="real size:=1(byte)*lenght="+incomingText.length()+"\n";
         toLog+="coded Text size:="+byteText.length+"   Table size:="+byteTable.length+"\n";
@@ -25,6 +25,7 @@ public class Stat {
         idMemory*=-(incomingText.length()/8);
         toLog+="ideal memory=:"+idMemory+"\n";
         System.out.println(toLog);
+        writeToLog(toLog);
     }
 
     public static void writeToLog(String toLog) throws IOException {

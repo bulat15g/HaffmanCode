@@ -1,4 +1,7 @@
-package com.company;
+package com.company.instruments;
+
+import com.company.Huffman;
+import com.company.Stat;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,7 +22,11 @@ public class Decoder {
             table = (HashMap<String, String>) in.readObject();
             in.close();
         }
-        catch (IOException | ClassNotFoundException ignored){}
+        catch (IOException e){
+            System.out.println("EROOR cached"+e.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         for (String a:table.keySet()) {
             System.out.print(a+"-->"+table.get(a)+"|| ||");
@@ -58,6 +65,7 @@ public class Decoder {
     }
 
     private StringBuilder decodeToString(){
+
         StringBuilder binaryText= new StringBuilder();
         for (int i = 0; i < byteText.length; i++) {
             for(int j=0;j<=7;j++) binaryText.append (((byteText[i] & (byte)(128 / Math.pow(2, j))) != 0)?1:0);
@@ -76,7 +84,8 @@ public class Decoder {
         return binaryText;
     }
 
-    Decoder(byte[] byteTable, byte[] byteText) throws IOException {
+    public Decoder(byte[] byteTable, byte[] byteText) throws IOException {
+        System.out.println("\n -------------------------------\n");
         this.byteTable = byteTable;
         this.byteText = byteText;
         decodeTable();

@@ -1,5 +1,8 @@
-package com.company;
+package com.company.instruments;
 
+
+import com.company.Huffman;
+import com.company.Main;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Random;
 
-import static com.company.Main.blockLenMinusOne;
+import static com.company.Main.blockLen;
 
 public class Output {
     HashMap<String,String>table;
@@ -22,6 +25,8 @@ public class Output {
 
 
         byteText=stringToDecoder(table,source);
+
+        System.out.println("\n -------------------------------\n");
     }
 
     public byte[] tableToDecoder(HashMap<String,String> table){
@@ -46,8 +51,8 @@ public class Output {
     public byte[] stringToDecoder(HashMap<String,String> table, String source){
         StringBuilder readyString= new StringBuilder();
 
-        for (int i = 0; i < source.length()/blockLenMinusOne; i++) {
-            readyString.append(table.get(source.substring(blockLenMinusOne*i,blockLenMinusOne*(i+1))));
+        for (int i = 0; i < source.length()/ blockLen; i++) {
+            readyString.append(table.get(source.substring(blockLen *i, blockLen *(i+1))));
         }
         readyString.append(table.get(Huffman.tail));
 
