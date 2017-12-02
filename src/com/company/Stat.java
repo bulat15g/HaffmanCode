@@ -24,19 +24,24 @@ public class Stat {
         }
         idMemory*=-(incomingText.length()/8);
         toLog+="ideal memory=:"+idMemory+"\n";
-        System.out.println(toLog);
         writeToLog(toLog);
+
     }
 
+    public static void clearLogFile() throws IOException{
+        File file=new File("history.log");
+        file.delete();
+        file.createNewFile();
+    }
     public static void writeToLog(String toLog) throws IOException {
-        File file=new File("output");
+        File file=new File("history.log");
         BufferedWriter writer;
         if(!file.exists()){
             if(file.createNewFile()) System.out.println("log created!");;
         }
         if(file.canWrite()){
-            writer=new BufferedWriter(new FileWriter(file));
-            writer.write(toLog);
+            writer=new BufferedWriter(new FileWriter(file,true));
+            writer.append(toLog);
             writer.close();
         }
     }

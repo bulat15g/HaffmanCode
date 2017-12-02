@@ -1,7 +1,10 @@
 package com.company.instruments;
 
+import com.company.Stat;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 public class CalculateTimer {
@@ -13,8 +16,8 @@ public class CalculateTimer {
         timer.start();
     }
 
-    public void showTime(){
-        System.out.println("current Time is:="+integer+"100 ms");
+    public void showTime() throws IOException {
+        Stat.writeToLog("current Time is:="+integer+"100 ms");
     }
 
 }

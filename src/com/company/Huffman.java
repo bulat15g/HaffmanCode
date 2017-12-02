@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.instruments.Node;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class Huffman {
     public static String tail;
 
     //get data and fill tree,and table
-    Huffman(String data){
+    Huffman(String data) throws IOException {
         fromsource=data;
         fromsource=fromsource.toLowerCase();
         countStatictics();
@@ -27,7 +28,6 @@ public class Huffman {
             }
         }
         createAndCompBinaryTree();
-//        System.out.println("TREE SIZE"+tree.size());
 
         while (tree.size()>1){
             tree.sort(Comparator.comparingInt(o -> o.cost));
@@ -36,13 +36,14 @@ public class Huffman {
 
         treeToBin(tree.get(0),"","~");
 
-        if(fromsource.length()<1000)System.out.println("word:=  "+fromsource+"\n");
-        else System.out.println("incomint text too long");
+
+        if(fromsource.length()<1000)Stat.writeToLog("word:=  "+fromsource+"\n");
+        else Stat.writeToLog("incomint text too long");
         for (String a:table.keySet()) {
-            System.out.print(a+"-->"+table.get(a)+"|| ||");
+            Stat.writeToLog(a+"-->"+table.get(a)+"|| ||");
         }
-        System.out.println("on coder");
-        System.out.println("");
+        Stat.writeToLog("on coder");
+        Stat.writeToLog("");
     }
 
     private void createAndCompBinaryTree(){
@@ -97,18 +98,18 @@ public class Huffman {
 
     }
 
-    public void showStat(){
+    public void showStat() throws IOException {
         for (String a:statics.keySet()){
-            System.out.print(a+"   "+statics.get(a)+" || ");
+            Stat.writeToLog(a+"   "+statics.get(a)+" || ");
         }
-        System.out.println();
+        Stat.writeToLog("");
     }
 
-    public void showTree(){
+    public void showTree() throws IOException {
         for (int i = 0; i < tree.size(); i++) {
-            System.out.print(tree.get(i).Letter+"  "+tree.get(i).cost+" ||");
+            Stat.writeToLog(tree.get(i).Letter+"  "+tree.get(i).cost+" ||");
         }
-        System.out.println();
+        Stat.writeToLog("");
     }
 
     HashMap<String, String> getTable() {

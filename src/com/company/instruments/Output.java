@@ -3,6 +3,7 @@ package com.company.instruments;
 
 import com.company.Huffman;
 import com.company.Main;
+import com.company.Stat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class Output {
     String source;
     private byte []byteTable,byteText;
 
-    public Output(HashMap<String, String> table, String source) {
+    public Output(HashMap<String, String> table, String source) throws IOException {
         this.table = table;
         this.source = source;
         byteTable= tableToDecoder(table);
@@ -26,7 +27,7 @@ public class Output {
 
         byteText=stringToDecoder(table,source);
 
-        System.out.println("\n -------------------------------\n");
+        Stat.writeToLog("\n -------------------------------\n");
     }
 
     public byte[] tableToDecoder(HashMap<String,String> table){
@@ -48,7 +49,7 @@ public class Output {
         return outBytes;
     }
 
-    public byte[] stringToDecoder(HashMap<String,String> table, String source){
+    public byte[] stringToDecoder(HashMap<String,String> table, String source) throws IOException {
         StringBuilder readyString= new StringBuilder();
 
         for (int i = 0; i < source.length()/ blockLen; i++) {
@@ -56,12 +57,12 @@ public class Output {
         }
         readyString.append(table.get(Huffman.tail));
 
-        System.out.println("now coded bin is preparing");
+        Stat.writeToLog("now coded bin is preparing");
 
         if(Main.hasErrors)readyString=new StringBuilder(makeError(readyString.toString()));
 
-        if(readyString.length()<1000)System.out.println(readyString+"\n");
-        else System.out.println("bin too long");
+        if(readyString.length()<1000)Stat.writeToLog(readyString+"\n");
+        else Stat.writeToLog("bin too long");
         byte[] forRet=new byte[readyString.length()/8+(readyString.length()%8!=0?1:0)];
 
         for (int i = 0; i < readyString.length(); i++) {
@@ -70,13 +71,13 @@ public class Output {
         return forRet;
     }
 
-    private String makeError(String binary) {
+    private String makeError(String binary) throws IOException {
 
         Random random = new Random();
 
         char[] characters=binary.toCharArray();
 
-        System.out.println("---> "+binary);
+        Stat.writeToLog("---> "+binary);
         for (int i = 0; i < binary.length(); i++) {
             if(random.nextDouble()<Main.criticalChanse){
 //                System.out.print("E|");
@@ -87,7 +88,7 @@ public class Output {
         }
 
         binary=String.copyValueOf(characters);
-        System.out.println("---> "+binary);
+        Stat.writeToLog("---> "+binary);
 
         return binary;
     }

@@ -14,7 +14,7 @@ public class Decoder {
     private HashMap<String,String> table;
     private String message="";
 
-    private void decodeTable() {
+    private void decodeTable() throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(byteTable);
         ObjectInput in = null;
         try {
@@ -23,18 +23,18 @@ public class Decoder {
             in.close();
         }
         catch (IOException e){
-            System.out.println("EROOR cached"+e.getMessage());
+            Stat.writeToLog("EROOR cached"+e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
         for (String a:table.keySet()) {
-            System.out.print(a+"-->"+table.get(a)+"|| ||");
+            Stat.writeToLog(a+"-->"+table.get(a)+"|| ||");
         }
-        System.out.println("on Decoder");
+        Stat.writeToLog("on Decoder");
     }
 
-    private void decodeString(StringBuilder input){
+    private void decodeString(StringBuilder input) throws IOException {
         int iterationOnTheEnd=0;
         String tableA = null;
         while((input.length()!=0)){//пока еще есть код
@@ -58,13 +58,13 @@ public class Decoder {
             if (tableA== Huffman.tail) break;
         }
 
-        if(message.length()<1000)System.out.println("\n"+"word:=  "+message);
-        else System.out.println("Message too Long");
+        if(message.length()<1000)Stat.writeToLog("\n"+"word:=  "+message);
+        else Stat.writeToLog("Message too Long");
 
-        if(iterationOnTheEnd>10)System.out.println("\n сycle breaked!!");
+        if(iterationOnTheEnd>10)Stat.writeToLog("\n сycle breaked!!");
     }
 
-    private StringBuilder decodeToString(){
+    private StringBuilder decodeToString() throws IOException {
 
         StringBuilder binaryText= new StringBuilder();
         for (int i = 0; i < byteText.length; i++) {
@@ -79,13 +79,13 @@ public class Decoder {
 //            }
 //        }
 
-        if(binaryText.length()<1000)System.out.println("\n"+binaryText);
-        else System.out.println("binary too long");
+        if(binaryText.length()<1000)Stat.writeToLog("\n"+binaryText);
+        else Stat.writeToLog("binary too long");
         return binaryText;
     }
 
     public Decoder(byte[] byteTable, byte[] byteText) throws IOException {
-        System.out.println("\n -------------------------------\n");
+        Stat.writeToLog("\n -------------------------------\n");
         this.byteTable = byteTable;
         this.byteText = byteText;
         decodeTable();

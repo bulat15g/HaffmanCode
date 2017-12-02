@@ -10,7 +10,7 @@ public class Main {
     public static boolean makeCorrections=true;
 
     public static void main(String[] args) throws IOException {
-
+        Stat.clearLogFile();
         String text=Source.getFileText("abvc");
         Union union=new Union(text);
         union.decodeProcess();
