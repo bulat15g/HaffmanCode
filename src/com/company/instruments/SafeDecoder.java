@@ -43,9 +43,9 @@ public class SafeDecoder {
         }
 
         Stat.writeToLog("\n -------------------------------\n");
-        Stat.writeToLog("safe DEcoder is changed safeBinary text code to normal :=");
-        Stat.writeToLog(">>"+binaryText);
-        Stat.writeToLog("end of safeDecoder");
+        Stat.writeToLog("\nsafe DEcoder is changed safeBinary text code to normal :=");
+        Stat.writeToLog("\n>>"+binaryText);
+        Stat.writeToLog("\nend of safeDecoder");
 
 
 
@@ -67,7 +67,7 @@ public class SafeDecoder {
 
     public StringBuilder countAndCorrectErrors(StringBuilder safeBinaryText) throws IOException {
         String block;
-        Stat.writeToLog("_______________________________\n Begin check of errors!!");
+        Stat.writeToLog("\n_______________________________\n Begin check of errors!!");
 
         for (int i = 0; i < safeBinaryText.length()/7+(safeBinaryText.length()%7!=0?1:0); i++) {
             block=safeBinaryText.substring(i*7,(i+1)*7);
@@ -103,7 +103,7 @@ public class SafeDecoder {
 
 
             {
-                if(i%10==0) Stat.writeToLog("");
+                if(i%10==0) Stat.writeToLog("\n.\n");
             }
         }
         Stat.writeToLog("\nSuccesfully corrected "+countOfCorrectedErrors+" eRrors   in safeBinaryText");
@@ -138,7 +138,7 @@ public class SafeDecoder {
             for (int j = 0; j < m-1; j++) {
                 Stat.writeToLog(matrix[i][j]+" ");
             }
-            Stat.writeToLog("");
+            Stat.writeToLog("\n.\n");
         }
     }
 

@@ -17,7 +17,7 @@ public class CalculateTimer {
     }
 
     public void showTime() throws IOException {
-        Stat.writeToLog("current Time is:="+integer+"100 ms");
+        Stat.writeToLog("\ncurrent Time is:="+integer+"100 ms");
     }
 
 }

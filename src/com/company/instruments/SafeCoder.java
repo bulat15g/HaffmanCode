@@ -66,9 +66,9 @@ public class SafeCoder {
         }
         this.safeBinaryTable=safeBinaryTable;
         this.safeBinaryText=safeBinaryText;
-        Stat.writeToLog("safe coder is changed binary text code:=");
-        Stat.writeToLog(">>"+safeBinaryText);
-        Stat.writeToLog("end of safeCoder");
+        Stat.writeToLog("safe coder is changed binary text code:="+"\n");
+        Stat.writeToLog(">>"+safeBinaryText+"\n");
+        Stat.writeToLog("end of safeCoder"+"\n");
 
 
 
@@ -94,7 +94,7 @@ public class SafeCoder {
             for (int j = 0; j < n; j++) {
                 Stat.writeToLog(matrix[i][j]+" ");
             }
-            Stat.writeToLog("");
+            Stat.writeToLog("\n.\n");
         }
     }
 

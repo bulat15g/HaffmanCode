@@ -43,7 +43,7 @@ public class Huffman {
             Stat.writeToLog(a+"-->"+table.get(a)+"|| ||");
         }
         Stat.writeToLog("on coder");
-        Stat.writeToLog("");
+        Stat.writeToLog("\n.\n");
     }
 
     private void createAndCompBinaryTree(){
@@ -102,14 +102,14 @@ public class Huffman {
         for (String a:statics.keySet()){
             Stat.writeToLog(a+"   "+statics.get(a)+" || ");
         }
-        Stat.writeToLog("");
+        Stat.writeToLog("\n.\n");
     }
 
     public void showTree() throws IOException {
         for (int i = 0; i < tree.size(); i++) {
             Stat.writeToLog(tree.get(i).Letter+"  "+tree.get(i).cost+" ||");
         }
-        Stat.writeToLog("");
+        Stat.writeToLog("\n.\n");
     }
 
     HashMap<String, String> getTable() {

@@ -3,7 +3,7 @@ package com.company;
 import java.io.IOException;
 
 public class Main {
-    public static double criticalChanse=0.005;
+    public static double criticalChanse=0.0005;
     public static int blockLen=1;
     public static boolean uniCodes=false;//равномерное кодирование
     public static boolean hasErrors=true;//делаь ли ошибки
